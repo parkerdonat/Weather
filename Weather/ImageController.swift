@@ -12,7 +12,7 @@ import UIKit
 class ImageController {
     
     static func weatherIconForIconCode(iconCode: String, completion:(image: UIImage?) -> Void) {
-        let url = NetworkController.urlForIcon(iconCode)
+        let url = WeatherController.urlForIcon(iconCode)
         
         NetworkController.dataAtURL(url) { (success: Bool, resultData) -> Void in
             guard let resultData = resultData

@@ -12,7 +12,7 @@ class WeatherController {
 
     static func weatherBySearchingCity(city: String, completion: (weather: Weather?) -> Void) {
         
-        let url = NetworkController.searchURLByCity(city)
+        let url = self.searchURLByCity(city)
         
         NetworkController.dataAtURL(url) { (success, resultData) in
             
@@ -31,4 +31,18 @@ class WeatherController {
             completion(weather: weatherModelObject)
         }
     }
+    
+    private static let API_KEY = "4e63f48bb2d090d7fb7d80f6447ace6a"
+    static let baseURL = "http://api.openweathermap.org/data/2.5/weather"
+    
+    static func searchURLByCity(city: String) -> NSURL {
+        let escapedCityString = city.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet())
+        
+        return NSURL(string: baseURL + "?q=\(escapedCityString!)" + "&appid=\(API_KEY)")!
+    }
+    
+    static func urlForIcon(iconString: String) -> NSURL {
+        return NSURL(string: "http://openweathermap.org/img/w/\(iconString).png")!
+    }
+
 }
